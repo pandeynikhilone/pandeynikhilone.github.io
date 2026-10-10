@@ -36,6 +36,41 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Validate portfolio copy, JSON, and JavaScript
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          import subprocess
+          from pathlib import Path
+
+          forbidden = chr(0x2014)
+          for filename in ("index.html", "data/projects.json", "README.md"):
+              content = Path(filename).read_text(encoding="utf-8")
+              if forbidden in content:
+                  raise SystemExit(f"Forbidden em dash character found in {filename}")
+
+          json.loads(Path("data/projects.json").read_text(encoding="utf-8"))
+          json.loads(Path("data/auto-projects.json").read_text(encoding="utf-8"))
+
+          html = Path("index.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, re.S)
+          if not scripts:
+              raise SystemExit("No inline JavaScript found to validate")
+          for index, script in enumerate(scripts, start=1):
+              result = subprocess.run(
+                  ["node", "--check", "-"],
+                  input=script,
+                  text=True,
+                  capture_output=True,
+                  check=False,
+              )
+              if result.returncode:
+                  print(result.stderr)
+                  raise SystemExit(f"JavaScript syntax check failed for script {index}")
+          print("Portfolio copy, project JSON, and JavaScript validation passed.")
+          PY
+
       - name: Validate project automation scripts
         run: python -m py_compile scripts/update_auto_projects.py scripts/manage_project_issue.py
 
