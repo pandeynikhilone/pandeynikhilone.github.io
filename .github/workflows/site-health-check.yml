@@ -62,7 +62,7 @@ jobs:
           retention-days: 30
 
       - name: Create or refresh one health issue when an audit fails
-        if: failure() && github.event_name != 'workflow_run'
+        if: failure()
         uses: actions/github-script@v7
         with:
           script: |
