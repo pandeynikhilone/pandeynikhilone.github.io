@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>NP</title>
+  <rect x="2" y="2" width="60" height="60" rx="17" fill="#d4f17b" stroke="#153a2a" stroke-width="2"/>
+  <path d="M15 47V17l15 30V17M39 47V17h7.5c8.5 0 8.5 14 0 14H39" fill="none" stroke="#153a2a" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
