@@ -135,13 +135,27 @@ def main():
             key=lambda p: (p["stars"], p["updatedAt"], p["title"].casefold()),
             reverse=True,
         )
+        # Keep the timestamp stable when the discovered project data is unchanged.
+        # This prevents a push-triggered deployment loop from committing a new
+        # timestamp on every run.
+        prior_projects = prior_catalog.get("projects", [])
+        prior_hidden = sorted(
+            name for name in prior_catalog.get("hiddenRepoNames", [])
+            if isinstance(name, str)
+        )
+        current_hidden = sorted(hidden_repo_names)
+        same_catalog = prior_projects == selected and prior_hidden == current_hidden
+        generated_at = prior_catalog.get("generatedAt") if same_catalog else None
+        if not isinstance(generated_at, str) or not generated_at:
+            generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+
         document = {
-            "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "generatedAt": generated_at,
             "rule": (
                 "Only non-fork, non-archived public repositories owned by "
                 f"{OWNER} and tagged with the GitHub topic '{TOPIC}' are shown."
             ),
-            "hiddenRepoNames": sorted(hidden_repo_names),
+            "hiddenRepoNames": current_hidden,
             "projects": selected,
         }
         OUTPUT.parent.mkdir(parents=True, exist_ok=True)
