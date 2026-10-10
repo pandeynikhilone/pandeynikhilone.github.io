@@ -75,12 +75,26 @@ def main():
                 break
             page += 1
 
+        prior_catalog = {}
+        if OUTPUT.exists():
+            try:
+                prior_catalog = json.loads(OUTPUT.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                prior_catalog = {}
+        hidden_repo_names = {
+            str(name).casefold()
+            for name in prior_catalog.get("hiddenRepoNames", [])
+            if isinstance(name, str) and name.strip()
+        }
+
         selected = []
         for repo in repositories:
             if repo.get("private", True) or repo.get("fork") or repo.get("archived"):
                 continue
             full_name = str(repo.get("full_name", ""))
             if full_name.casefold() == SITE_REPO.casefold():
+                continue
+            if repo.get("name", "").casefold() in hidden_repo_names:
                 continue
             topics = repository_topics(repo)
             if TOPIC not in topics:
@@ -127,6 +141,7 @@ def main():
                 "Only non-fork, non-archived public repositories owned by "
                 f"{OWNER} and tagged with the GitHub topic '{TOPIC}' are shown."
             ),
+            "hiddenRepoNames": sorted(hidden_repo_names),
             "projects": selected,
         }
         OUTPUT.parent.mkdir(parents=True, exist_ok=True)
