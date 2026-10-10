@@ -8,9 +8,10 @@
       (() => {
         try {
           const saved = window.localStorage.getItem("portfolio-theme");
-          // Start in light mode unless the visitor has explicitly chosen a theme before.
+          const explicitChoice = window.localStorage.getItem("portfolio-theme-explicit") === "true";
+          // Old automatic system-theme values do not override the new light default.
           document.documentElement.dataset.theme =
-            saved === "dark" || saved === "light" ? saved : "light";
+            explicitChoice && (saved === "dark" || saved === "light") ? saved : "light";
         } catch {
           document.documentElement.dataset.theme = "light";
         }
