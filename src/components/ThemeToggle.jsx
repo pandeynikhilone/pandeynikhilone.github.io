@@ -26,6 +26,7 @@ export default function ThemeToggle() {
     if (themeColor) themeColor.setAttribute("content", theme === "dark" ? "#101713" : "#f5f4ee");
     try {
       window.localStorage.setItem("portfolio-theme", theme);
+      window.localStorage.setItem("portfolio-theme-explicit", "true");
     } catch {
       // Theme remains available for this visit if storage is unavailable.
     }
