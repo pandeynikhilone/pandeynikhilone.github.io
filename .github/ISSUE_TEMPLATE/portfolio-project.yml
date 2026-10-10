@@ -1,8 +1,6 @@
 name: Portfolio project change request
 description: Add, edit, or remove a project card on Nikhil's portfolio website.
 title: "Portfolio project change request"
-labels:
-  - portfolio-update
 body:
   - type: markdown
     attributes:
