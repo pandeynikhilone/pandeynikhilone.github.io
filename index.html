@@ -108,7 +108,6 @@
         </div>
       </div>
 
-      <p id="projects-status" class="section-intro" aria-live="polite">Loading projects…</p>
       <div class="grid" id="project-grid" aria-label="Portfolio projects"></div>
     </section>
 
@@ -212,7 +211,6 @@
     };
 
     async function loadProjects() {
-      const status = document.getElementById("projects-status");
       const grid = document.getElementById("project-grid");
 
       try {
@@ -239,18 +237,12 @@
         const projects = [...manualProjects, ...automatic];
 
         if (!projects.length) {
-          status.textContent = "Projects are being refreshed. Please check back soon.";
           grid.innerHTML = "";
           return;
         }
 
         grid.innerHTML = projects.map(projectCard).join("");
-        // const autoCount = automatic.length;
-        // status.textContent = autoCount
-        //   ? projects.length + " projects · " + autoCount + " discovered from public repositories."
-        //   : projects.length + " selected projects.";
       } catch (error) {
-        status.textContent = "Projects could not be loaded right now. Please refresh the page in a moment.";
         grid.innerHTML = "";
         console.error("Portfolio project loading failed:", error);
       }
