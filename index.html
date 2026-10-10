@@ -245,10 +245,10 @@
         }
 
         grid.innerHTML = projects.map(projectCard).join("");
-        const autoCount = automatic.length;
-        status.textContent = autoCount
-          ? projects.length + " projects · " + autoCount + " discovered from public repositories."
-          : projects.length + " selected projects.";
+        // const autoCount = automatic.length;
+        // status.textContent = autoCount
+        //   ? projects.length + " projects · " + autoCount + " discovered from public repositories."
+        //   : projects.length + " selected projects.";
       } catch (error) {
         status.textContent = "Projects could not be loaded right now. Please refresh the page in a moment.";
         grid.innerHTML = "";
