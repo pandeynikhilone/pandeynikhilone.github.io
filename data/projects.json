@@ -1,0 +1,68 @@
+{
+  "instructions": "Edit this file to add, remove, or change hand-picked project cards. Save/commit changes to main. See README.md for the exact fields. Entries here override auto-discovered entries with the same repoName.",
+  "projects": [
+    {
+      "repoName": "",
+      "title": "AI LinkedIn Content Automation",
+      "description": "A workflow that generates LinkedIn post copy and slide outlines, renders animated MP4 videos, and uses GitHub Actions to test LinkedIn authentication, video uploads, and publishing. Includes preview mode and a publishing ledger that blocks repeat posts on the same day.",
+      "category": "Python · Automation",
+      "technologies": [
+        "Python",
+        "Gemini API",
+        "FFmpeg",
+        "GitHub Actions",
+        "LinkedIn API"
+      ],
+      "status": "Source repository is private; no credentials or private code are exposed here.",
+      "links": [
+        {
+          "label": "LinkedIn profile",
+          "url": "https://www.linkedin.com/in/pandeynikhilone/"
+        }
+      ]
+    },
+    {
+      "repoName": "TechFestEvent",
+      "title": "TechFest Event Registration",
+      "description": "A student registration website for browsing events, registering participant details, presenting a manual-payment summary, and generating an admit-card flow. The repository credits Nikhil as a frontend contributor.",
+      "category": "Web development",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Bootstrap",
+        "Django",
+        "SQLite"
+      ],
+      "sourceUrl": "https://github.com/pandeynikhilone/TechFestEvent",
+      "sourceLabel": "Source code"
+    },
+    {
+      "repoName": "Task-Manager-CLI",
+      "title": "Task Manager CLI",
+      "description": "A menu-driven command-line app for adding, viewing, and deleting tasks. A focused project for practising Java fundamentals, collections, and console input.",
+      "category": "Java · CLI",
+      "technologies": [
+        "Java",
+        "ArrayList",
+        "Scanner",
+        "CLI design"
+      ],
+      "sourceUrl": "https://github.com/pandeynikhilone/Task-Manager-CLI",
+      "sourceLabel": "Source code"
+    },
+    {
+      "repoName": "StudentPortal",
+      "title": "Student Portal",
+      "description": "A student-facing resource project organized around computer-science department materials such as notes, syllabus, forms, videos, and books.",
+      "category": "Student resources",
+      "technologies": [
+        "Web UI",
+        "Information architecture",
+        "Student resources"
+      ],
+      "sourceUrl": "https://github.com/pandeynikhilone/StudentPortal",
+      "sourceLabel": "Source code"
+    }
+  ]
+}
