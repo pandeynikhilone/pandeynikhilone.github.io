@@ -22,26 +22,6 @@
       "demoLabel": "Live demo"
     },
     {
-      "repoName": "",
-      "title": "AI LinkedIn Content Automation",
-      "description": "A workflow that generates LinkedIn post copy and slide outlines, renders animated MP4 videos, and uses GitHub Actions to test LinkedIn authentication, video uploads, and publishing. Includes preview mode and a publishing ledger that blocks repeat posts on the same day.",
-      "category": "Python · Automation",
-      "technologies": [
-        "Python",
-        "Gemini API",
-        "FFmpeg",
-        "GitHub Actions",
-        "LinkedIn API"
-      ],
-      "status": "Source repository is private; no credentials or private code are exposed here.",
-      "links": [
-        {
-          "label": "LinkedIn profile",
-          "url": "https://www.linkedin.com/in/pandeynikhilone/"
-        }
-      ]
-    },
-    {
       "repoName": "TechFestEvent",
       "title": "TechFest Event Registration",
       "description": "A student registration website for browsing events, registering participant details, presenting a manual-payment summary, and generating an admit-card flow. The repository credits Nikhil as a frontend contributor.",
