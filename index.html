@@ -71,6 +71,12 @@
     .nav-links a:hover { color: var(--green); }
     .nav-cta { border: 1px solid var(--ink); background: var(--ink); color: white !important; border-radius: 999px; padding: 11px 17px; }
     .nav-cta:hover { background: var(--green); border-color: var(--green); }
+    .nav-toggle { display: none; }
+    .menu-icon { display: grid; gap: 4px; width: 18px; }
+    .menu-icon span { display: block; height: 2px; border-radius: 99px; background: currentColor; transition: transform .2s ease, opacity .2s ease; }
+    .nav-toggle[aria-expanded="true"] .menu-icon span:first-child { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] .menu-icon span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] .menu-icon span:last-child { transform: translateY(-6px) rotate(-45deg); }
     .hero { padding: clamp(54px, 8.6vw, 108px) 0 54px; }
     .hero-grid { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr); align-items: center; gap: clamp(36px, 6vw, 78px); }
     .hero-badge { display: inline-flex; align-items: center; gap: 9px; border: 1px solid #c8d4c7; background: rgba(255, 254, 250, .7); padding: 8px 12px; border-radius: 999px; color: var(--green-dark); font: 500 .71rem/1.4 var(--mono); }
@@ -217,10 +223,14 @@
       .wrap { width: min(var(--width), calc(100% - 30px)); }
       .topline-inner { justify-content: center; text-align: center; }
       .topline-inner > a { display: none; }
-      .nav { min-height: 66px; gap: 12px; }
-      .brand-name { display: none; }
-      .nav-links { gap: 13px; font-size: .76rem; }
-      .nav-cta { padding: 9px 12px; }
+      .nav { min-height: 66px; gap: 12px; flex-wrap: wrap; }
+      .brand-name { display: inline; }
+      .nav-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 9px; margin-left: auto; min-height: 42px; padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font: 700 .8rem/1 var(--sans); cursor: pointer; }
+      .nav-links { display: none; order: 3; width: 100%; flex-direction: column; align-items: stretch; gap: 4px; padding: 12px; margin: 0 0 12px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: 0 16px 30px rgba(32,54,39,.08); font-size: .9rem; }
+      .nav-links.is-open { display: flex; }
+      .nav-links > a:not(.nav-cta) { padding: 12px 10px; border-radius: 9px; }
+      .nav-links > a:not(.nav-cta):hover { background: var(--surface-green); }
+      .nav-cta { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; margin-top: 5px; padding: 13px 14px; border-radius: 11px; }
       .hero { padding-top: 56px; }
       h1 { font-size: clamp(2.8rem, 13vw, 4.4rem); }
       .hero-title-accent { white-space: normal; }
@@ -234,12 +244,24 @@
       .proof-label { max-width: 160px; }
       .project-grid, .toolkit-grid, .education-grid { grid-template-columns: 1fr; }
       .project-art { height: 224px; }
-      .timeline-item { grid-template-columns: 1fr; gap: 9px; }
-      .timeline-date { order: 0; }
+      .experience-section { padding: 56px 0; }
+      .experience-section .timeline { border: 1px solid #cbd6c7; border-radius: 16px; overflow: hidden; background: rgba(255,254,250,.64); }
+      .experience-section .timeline-item { grid-template-columns: minmax(0,1fr); gap: 11px; padding: 24px 19px; }
+      .experience-section .timeline-date { order: 0; }
+      .experience-section .timeline-main { min-width: 0; }
+      .experience-section .timeline-main ul { padding-left: 19px; margin-top: 15px; gap: 9px; }
+      .experience-section .timeline-main li { padding-left: 2px; }
       .timeline-heading { display: block; }
       .timeline-role { display: block; margin-top: 7px; }
       .section { padding: 65px 0; }
-      .contact-panel { padding: 27px 21px; border-radius: 23px; }
+      .contact-panel { grid-template-columns: minmax(0,1fr); gap: 23px; padding: 27px 19px; border-radius: 23px; }
+      .contact-panel h2 { overflow-wrap: anywhere; font-size: clamp(1.85rem, 8vw, 2.55rem); }
+      .contact-panel p { overflow-wrap: anywhere; }
+      .contact-links { max-width: none; width: 100%; }
+      .contact-link { gap: 9px; padding: 12px 11px; font-size: .76rem; }
+      .contact-link span:first-child { min-width: 0; overflow-wrap: anywhere; }
+      .contact-panel .actions { width: 100%; }
+      .contact-panel .actions .button { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -262,7 +284,11 @@
         <span class="brand-mark">NP</span>
         <span class="brand-name">Nikhil Pandey</span>
       </a>
-      <div class="nav-links">
+      <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="menu-label">Menu</span>
+      </button>
+      <div class="nav-links" id="primary-navigation">
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
@@ -491,6 +517,34 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.getElementById("primary-navigation");
+
+    const closeMobileNavigation = () => {
+      navLinks.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Open navigation menu");
+    };
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+      navLinks.classList.toggle("is-open", !isOpen);
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMobileNavigation);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMobileNavigation();
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 660) closeMobileNavigation();
+    });
 
     const escapeHtml = (value) => String(value ?? "").replace(/\u2014/g, "-").replace(/[&<>"']/g, (char) => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
