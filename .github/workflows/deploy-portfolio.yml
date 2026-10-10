@@ -36,6 +36,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Validate project automation scripts
+        run: python -m py_compile scripts/update_auto_projects.py scripts/manage_project_issue.py
+
       - name: Refresh opted-in public repository catalog
         id: discover
         continue-on-error: true
