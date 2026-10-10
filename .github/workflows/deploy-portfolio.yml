@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   schedule:
-    # 00:37 India time (18:37 UTC) every day.
+    # 00:07 India time (18:37 UTC) every day.
     - cron: "37 18 * * *"
   workflow_dispatch:
 
