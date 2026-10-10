@@ -31,4 +31,9 @@ const dependencies = { ...packageConfig.dependencies, ...packageConfig.devDepend
 assert.ok(dependencies.react && dependencies["react-dom"], "React and React DOM must be installed.");
 assert.ok(dependencies.vite && dependencies["@vitejs/plugin-react"], "Vite and its React plugin must be installed.");
 assert.ok(!Object.keys(dependencies).some((name) => /tailwind|bootstrap/i.test(name)), "The portfolio app must not use Tailwind CSS or Bootstrap.");
+const html = readFileSync("index.html", "utf8");
+assert.ok(/<link\\s+rel=["']icon["'][^>]*href=["']\\.\\/favicon\\.svg\\?v=\\d+["']/i.test(html),
+  "index.html must reference a versioned relative SVG favicon.");
+assert.ok(readFileSync("public/favicon.svg", "utf8").includes("<svg"),
+  "The public SVG favicon must contain valid SVG markup.");
 console.log("Portfolio source, copy, data catalogs, and framework dependencies are valid.");
