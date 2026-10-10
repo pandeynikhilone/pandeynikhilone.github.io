@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f5f4ee" />
+    <script>
+      (() => {
+        try {
+          const saved = window.localStorage.getItem("portfolio-theme");
+          const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme =
+            saved === "dark" || saved === "light" ? saved : systemPrefersDark ? "dark" : "light";
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
     <meta name="description" content="Nikhil Pandey is an MCA student and frontend-focused full-stack developer with experience in React, TypeScript, Next.js, API integration, and deployed web projects." />
     <meta property="og:title" content="Nikhil Pandey | Software Developer" />
     <meta property="og:description" content="Selected projects, frontend experience, technical skills, and ways to connect with Nikhil Pandey." />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { profile } from "../data/portfolio.js";
+import ThemeToggle from "./ThemeToggle.jsx";
 
 const navigation = [
   ["Projects", "#projects"],
@@ -43,13 +44,16 @@ export default function SiteHeader() {
             <span className="brand-mark">{profile.initials}</span>
             <span className="brand-name">{profile.name}</span>
           </a>
-          <button className="nav-toggle" type="button" aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={menuOpen} aria-controls="primary-navigation" onClick={() => setMenuOpen((open) => !open)}>
-            <span className="menu-icon" aria-hidden="true"><span /><span /><span /></span>
-            <span className="menu-label">Menu</span>
-          </button>
           <div id="primary-navigation" className={"nav-links" + (menuOpen ? " is-open" : "")}>
             {navigation.map(([label, href]) => <a key={href} href={href} onClick={closeMenu}>{label}</a>)}
             <a className="nav-cta" href="#contact" onClick={closeMenu}>Contact <span aria-hidden="true">↗</span></a>
+          </div>
+          <div className="nav-actions">
+            <ThemeToggle />
+            <button className="nav-toggle" type="button" aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={menuOpen} aria-controls="primary-navigation" onClick={() => setMenuOpen((open) => !open)}>
+              <span className="menu-icon" aria-hidden="true"><span /><span /><span /></span>
+              <span className="menu-label">Menu</span>
+            </button>
           </div>
         </nav>
       </header>
