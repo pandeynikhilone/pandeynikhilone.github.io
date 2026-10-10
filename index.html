@@ -104,44 +104,12 @@
         <div>
           <div class="eyebrow">Selected work</div>
           <h2 style="margin-top:10px">Projects with a purpose.</h2>
-          <p class="section-intro">I focus on what a project does, how it is built, and what I can improve next. Source links below point to public repositories where available.</p>
+          <p class="section-intro">I focus on what a project does, how it is built, and what I can improve next. Hand-picked projects are maintained in one simple data file; opted-in public repositories are discovered automatically.</p>
         </div>
       </div>
 
-      <div class="grid">
-        <article class="card">
-          <div class="card-top"><span class="project-no">PROJECT 01</span><span class="pill">Python · Automation</span></div>
-          <h3>AI LinkedIn Content Automation</h3>
-          <p>A workflow that generates professional post copy and slide outlines, renders animated MP4 videos, and uses GitHub Actions to test LinkedIn authentication, video uploads, and publishing. Includes preview mode and an explicit publishing switch.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Gemini API</span><span class="tag">FFmpeg</span><span class="tag">GitHub Actions</span><span class="tag">LinkedIn API</span></div>
-          <p class="private-note">Source repository is currently private; public-safe project documentation is planned.</p>
-          <div class="card-links"><a href="https://www.linkedin.com/in/pandeynikhilone/" target="_blank" rel="noreferrer">See my LinkedIn ↗</a></div>
-        </article>
-
-        <article class="card">
-          <div class="card-top"><span class="project-no">PROJECT 02</span><span class="pill">Web development</span></div>
-          <h3>TechFest Event Registration</h3>
-          <p>A student registration website for browsing events, registering participant details, presenting a manual-payment summary, and generating an admit-card flow. My repository credits me as a frontend contributor.</p>
-          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Bootstrap</span><span class="tag">Django</span><span class="tag">SQLite</span></div>
-          <div class="card-links"><a href="https://github.com/pandeynikhilone/TechFestEvent" target="_blank" rel="noreferrer">Source code ↗</a></div>
-        </article>
-
-        <article class="card">
-          <div class="card-top"><span class="project-no">PROJECT 03</span><span class="pill">Java · CLI</span></div>
-          <h3>Task Manager CLI</h3>
-          <p>A menu-driven command-line app for adding, viewing, and deleting tasks. A focused project for practising Java fundamentals, collections, and console input.</p>
-          <div class="tags"><span class="tag">Java</span><span class="tag">ArrayList</span><span class="tag">Scanner</span><span class="tag">CLI design</span></div>
-          <div class="card-links"><a href="https://github.com/pandeynikhilone/Task-Manager-CLI" target="_blank" rel="noreferrer">Source code ↗</a></div>
-        </article>
-
-        <article class="card">
-          <div class="card-top"><span class="project-no">PROJECT 04</span><span class="pill">Student resources</span></div>
-          <h3>Student Portal</h3>
-          <p>A student-facing resource project organized around computer-science department materials such as notes, syllabus, forms, videos, and books.</p>
-          <div class="tags"><span class="tag">Web UI</span><span class="tag">Information architecture</span><span class="tag">Student resources</span></div>
-          <div class="card-links"><a href="https://github.com/pandeynikhilone/StudentPortal" target="_blank" rel="noreferrer">Source code ↗</a></div>
-        </article>
-      </div>
+      <p id="projects-status" class="section-intro" aria-live="polite">Loading projects…</p>
+      <div class="grid" id="project-grid" aria-label="Portfolio projects"></div>
     </section>
 
     <section id="about">
@@ -191,6 +159,104 @@
     <span>Built to show evidence, learning, and progress.</span>
     <a href="#top">Back to top ↑</a>
   </footer>
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[char]);
+
+    const safeWebUrl = (value) => {
+      try {
+        const url = new URL(String(value || ""));
+        return url.protocol === "https:" ? url.href : "";
+      } catch {
+        return "";
+      }
+    };
+
+    const projectCard = (project, index) => {
+      const tags = Array.isArray(project.technologies) ? project.technologies : [];
+      const links = Array.isArray(project.links) ? project.links : [];
+      const sourceUrl = safeWebUrl(project.sourceUrl);
+      const demoUrl = safeWebUrl(project.demoUrl);
+      const cardLinks = [];
+
+      if (demoUrl) cardLinks.push({label: project.demoLabel || "Live demo", url: demoUrl});
+      if (sourceUrl) cardLinks.push({label: project.sourceLabel || "Source code", url: sourceUrl});
+
+      for (const item of links) {
+        const url = safeWebUrl(item && item.url);
+        if (url && item.label) cardLinks.push({label: item.label, url});
+      }
+
+      const linksHtml = cardLinks.map((item) =>
+        '<a href="' + escapeHtml(item.url) + '" target="_blank" rel="noreferrer">' +
+        escapeHtml(item.label) + ' ↗</a>'
+      ).join("");
+
+      const tagsHtml = tags.slice(0, 8).map((tag) =>
+        '<span class="tag">' + escapeHtml(tag) + '</span>'
+      ).join("");
+
+      return '<article class="card">' +
+        '<div class="card-top"><span class="project-no">PROJECT ' +
+          String(index + 1).padStart(2, "0") +
+        '</span><span class="pill">' + escapeHtml(project.category || "Software project") + '</span></div>' +
+        '<h3>' + escapeHtml(project.title || project.repoName || "Untitled project") + '</h3>' +
+        '<p>' + escapeHtml(project.description || "Project details will be added soon.") + '</p>' +
+        (tagsHtml ? '<div class="tags">' + tagsHtml + '</div>' : '') +
+        (project.status ? '<p class="private-note">' + escapeHtml(project.status) + '</p>' : '') +
+        (linksHtml ? '<div class="card-links">' + linksHtml + '</div>' : '') +
+      '</article>';
+    };
+
+    async function loadProjects() {
+      const status = document.getElementById("projects-status");
+      const grid = document.getElementById("project-grid");
+
+      try {
+        const options = {cache: "no-store"};
+        const [manualResponse, autoResponse] = await Promise.all([
+          fetch("./data/projects.json", options),
+          fetch("./data/auto-projects.json", options)
+        ]);
+        if (!manualResponse.ok || !autoResponse.ok) {
+          throw new Error("The project list could not be loaded.");
+        }
+
+        const manualData = await manualResponse.json();
+        const autoData = await autoResponse.json();
+        const manualProjects = Array.isArray(manualData.projects) ? manualData.projects : [];
+        const autoProjects = Array.isArray(autoData.projects) ? autoData.projects : [];
+
+        // Hand-picked entries win over auto-discovered records for the same repo.
+        const manualRepos = new Set(manualProjects
+          .map((p) => String(p.repoName || "").toLowerCase())
+          .filter(Boolean));
+        const automatic = autoProjects.filter((p) =>
+          !manualRepos.has(String(p.repoName || "").toLowerCase()));
+        const projects = [...manualProjects, ...automatic];
+
+        if (!projects.length) {
+          status.textContent = "Projects are being refreshed. Please check back soon.";
+          grid.innerHTML = "";
+          return;
+        }
+
+        grid.innerHTML = projects.map(projectCard).join("");
+        const autoCount = automatic.length;
+        status.textContent = autoCount
+          ? projects.length + " projects · " + autoCount + " discovered from public repositories."
+          : projects.length + " selected projects.";
+      } catch (error) {
+        status.textContent = "Projects could not be loaded right now. Please refresh the page in a moment.";
+        grid.innerHTML = "";
+        console.error("Portfolio project loading failed:", error);
+      }
+    }
+
+    loadProjects();
+  </script>
 </body>
 </html>
