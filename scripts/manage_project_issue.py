@@ -132,17 +132,29 @@ def main():
             # Hide the corresponding automatic card too, if it is a repo.
             if removed_repo:
                 hidden_map.add(removed_repo.casefold())
-        elif repo_name:
-            # Removing an auto-discovered public repository hides it from the site
-            # until the owner un-hides it by adding/editing the topic or form entry.
-            hidden_map.add(repo_name.casefold())
-            print(f"Hidden auto-discovered repository: {repo_name}")
         else:
-            raise ValueError("No matching project found. Provide its exact title or repository name.")
+            # When a card is automatic-only, allow the repository name or title.
+            auto_projects = auto.get("projects", [])
+            auto_match = next(
+                (
+                    project for project in auto_projects
+                    if (
+                        (repo_name and str(project.get("repoName", "")).casefold() == repo_name.casefold())
+                        or str(project.get("title", "")).casefold() == title.casefold()
+                    )
+                ),
+                None,
+            )
+            target_repo = repo_name or (str(auto_match.get("repoName", "")).strip() if auto_match else "")
+            if target_repo:
+                hidden_map.add(target_repo.casefold())
+                print(f"Hidden auto-discovered repository: {target_repo}")
+            else:
+                raise ValueError("No matching project found. Provide its exact title or repository name.")
     else:
-        source_url = url_value(source_raw, "Source code URL")
-        demo_url = url_value(demo_raw, "Live demo URL")
-        extra_links = parse_extra_links(links_raw) if links_raw else []
+        source_url = "" if source_raw.casefold() == CLEAR else url_value(source_raw, "Source code URL")
+        demo_url = "" if demo_raw.casefold() == CLEAR else url_value(demo_raw, "Live demo URL")
+        extra_links = parse_extra_links(links_raw) if links_raw and links_raw.casefold() != CLEAR else []
 
         if action == "add" and not description:
             raise ValueError("Short description is required when adding a project.")
@@ -197,7 +209,10 @@ def main():
                 else:
                     project["status"] = status_raw
             if links_raw:
-                project["links"] = extra_links
+                if links_raw.casefold() == CLEAR:
+                    project.pop("links", None)
+                else:
+                    project["links"] = extra_links
             print(f"Updated project: {project.get('title', title)}")
 
         # If an owner adds a repository manually, allow it even if previously hidden.
