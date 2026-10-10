@@ -488,3 +488,22 @@ body,
     animation: none !important;
   }
 }
+
+/* Dark theme contrast refinements */
+html[data-theme="dark"] .button.primary {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: #17231d;
+}
+html[data-theme="dark"] .button.primary:hover,
+html[data-theme="dark"] .button.primary:focus-visible {
+  background: #e0f99b;
+  border-color: #e0f99b;
+  color: #17231d;
+}
+html[data-theme="dark"] .brand-mark {
+  color: #17231d;
+  background: var(--lime);
+  border-color: rgba(212, 241, 123, .68);
+  box-shadow: 0 0 0 3px rgba(212, 241, 123, .08);
+}
