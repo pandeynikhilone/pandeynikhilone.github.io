@@ -40,6 +40,14 @@ jobs:
           GITHUB_EVENT_PATH: ${{ github.event_path }}
         run: python scripts/manage_project_issue.py
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install frontend dependencies
+        run: npm install --no-audit --no-fund
+
       - name: Commit catalog updates
         run: |
           git config user.name "github-actions[bot]"
@@ -52,14 +60,18 @@ jobs:
             git push origin HEAD:main
           fi
 
-      - name: Prepare static site artifact
+      - name: Validate project data and React app
+        run: npm run check
+
+      - name: Build React application
+        run: npm run build
+
+      - name: Verify build output
         run: |
-          rm -rf _site
-          mkdir -p _site/data
-          cp index.html _site/index.html
-          cp data/projects.json _site/data/projects.json
-          cp data/auto-projects.json _site/data/auto-projects.json
-          touch _site/.nojekyll
+          test -s dist/index.html
+          test -s dist/favicon.svg
+          test -s dist/data/projects.json
+          test -s dist/data/auto-projects.json
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -67,7 +79,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: _site
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment

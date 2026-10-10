@@ -1,30 +1,89 @@
 # Nikhil Pandey | Career Portfolio
 
-A lightweight portfolio site focused on my frontend experience, full-stack project work, technical skills, and education.
+This is my personal portfolio for software development internships and early-career roles. It is built with React, Vite, and plain CSS. The portfolio itself does not use Tailwind CSS, Bootstrap, or a component UI framework.
 
-## Update projects
-The project cards are generated from `data/projects.json` and `data/auto-projects.json`.
+## Project structure
 
-- For the easiest workflow, open the [portfolio project request form](https://github.com/pandeynikhilone/pandeynikhilone.github.io/issues/new?template=portfolio-project.yml).
-- For direct editing, open `data/projects.json`, click the pencil icon, edit a project entry, and commit to `main`.
-- To auto-discover a new public repository, add the GitHub topic `portfolio` to that repository. The discovery workflow refreshes the catalog daily.
-- The deployment workflow builds the static site and publishes it with GitHub Pages.
+    .
+    ├── index.html
+    ├── package.json
+    ├── vite.config.js
+    ├── public/
+    │   └── favicon.svg
+    ├── src/
+    │   ├── main.jsx
+    │   ├── App.jsx
+    │   ├── components/
+    │   │   ├── SiteHeader.jsx
+    │   │   ├── HeroSection.jsx
+    │   │   ├── ProjectsSection.jsx
+    │   │   ├── ProjectCard.jsx
+    │   │   ├── ExperienceSection.jsx
+    │   │   ├── SkillsSection.jsx
+    │   │   ├── EducationSection.jsx
+    │   │   ├── ContactSection.jsx
+    │   │   └── SiteFooter.jsx
+    │   ├── data/
+    │   │   └── portfolio.js
+    │   └── styles/
+    │       └── site.css
+    ├── data/
+    │   ├── projects.json
+    │   └── auto-projects.json
+    ├── scripts/
+    │   ├── check-portfolio.mjs
+    │   ├── manage_project_issue.py
+    │   └── update_auto_projects.py
+    └── .github/
+        └── workflows/
 
-## Portfolio sections
-- Introduction and contact links
-- Selected projects with source links and project highlights
-- Experience at Techqueto Pvt Ltd. and National Post Graduate College
-- Technical toolkit
-- Education
+## Run locally
 
-## Keep the site accurate
-- Describe only work you actually contributed to.
-- Add live demo links only when the demo is available.
-- Never commit API keys, access tokens, passwords, or other credentials.
-- The resume lists a BCA timeline ending in June 2026. The website presents the dates without the old expected-status wording.
-- The current MCA details reflect Nikhil's separately shared enrollment information.
+Install Node.js 22 or a compatible newer LTS release. From the repository folder, run:
+
+    npm install
+    npm run dev
+
+Vite prints a local URL. Open it in your browser. To validate the project data and create a production build, run:
+
+    npm run check
+    npm run build
+    npm run preview
+
+The Vite build includes both project catalogs from the data folder as static files. The React app reads the same catalog that the Python automation maintains.
+
+## Where to edit things
+
+- Name, contact details, highlights, experience, skills, and education: src/data/portfolio.js
+- Page layout and React behavior: the relevant file in src/components/
+- Colors, typography, spacing, responsive rules, and animation: src/styles/site.css
+- Manually selected project cards: data/projects.json
+- Automatically discovered projects: scripts/update_auto_projects.py writes data/auto-projects.json
+- Browser tab icon: public/favicon.svg
+- Build and publishing automation: files in .github/workflows/
+
+## Project catalog automation
+
+The existing Python automation is retained.
+
+- scripts/update_auto_projects.py discovers opted-in public repositories tagged with the GitHub topic portfolio.
+- scripts/manage_project_issue.py updates the curated catalog through the GitHub project request form.
+- scripts/check-portfolio.mjs checks required files, project data, installed framework choices, and the no-em-dash copy rule.
+
+The refresh workflow checks the catalog daily and on changes to main. The project request workflow updates the catalog and deploys the site after an owner-submitted form.
+
+## Technologies
+
+- React and React DOM for the interface
+- Vite for development and production builds
+- Plain CSS for portfolio styling
+- Python for repository discovery and project form automation
+- GitHub Actions and GitHub Pages for validation and deployment
+
+Project technology labels describe each project itself and are separate from the tools used to build this portfolio.
 
 ## Links
+
 - Website: https://pandeynikhilone.github.io/
 - LinkedIn: https://www.linkedin.com/in/pandeynikhilone/
 - GitHub: https://github.com/pandeynikhilone

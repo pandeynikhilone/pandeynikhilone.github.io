@@ -36,44 +36,16 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Validate portfolio copy, JSON, and JavaScript
-        run: |
-          python - <<'PY'
-          import json
-          import re
-          import subprocess
-          from pathlib import Path
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
 
-          forbidden = chr(0x2014)
-          for filename in ("index.html", "data/projects.json", "README.md"):
-              content = Path(filename).read_text(encoding="utf-8")
-              if forbidden in content:
-                  raise SystemExit(f"Forbidden em dash character found in {filename}")
+      - name: Install frontend dependencies
+        run: npm install --no-audit --no-fund
 
-          json.loads(Path("data/projects.json").read_text(encoding="utf-8"))
-          json.loads(Path("data/auto-projects.json").read_text(encoding="utf-8"))
-
-          if not Path("favicon.svg").is_file():
-              raise SystemExit("favicon.svg is missing")
-          html = Path("index.html").read_text(encoding="utf-8")
-          if 'href="./favicon.svg"' not in html:
-              raise SystemExit("index.html does not link to favicon.svg")
-          scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, re.S)
-          if not scripts:
-              raise SystemExit("No inline JavaScript found to validate")
-          for index, script in enumerate(scripts, start=1):
-              result = subprocess.run(
-                  ["node", "--check", "-"],
-                  input=script,
-                  text=True,
-                  capture_output=True,
-                  check=False,
-              )
-              if result.returncode:
-                  print(result.stderr)
-                  raise SystemExit(f"JavaScript syntax check failed for script {index}")
-          print("Portfolio copy, project JSON, and JavaScript validation passed.")
-          PY
+      - name: Validate React app, copy, and project data
+        run: npm run check
 
       - name: Validate project automation scripts
         run: python -m py_compile scripts/update_auto_projects.py scripts/manage_project_issue.py
@@ -129,15 +101,16 @@ jobs:
             exit 1
           fi
 
-      - name: Prepare static site artifact
+      - name: Build React application
+        run: npm run build
+
+      - name: Verify build output
         run: |
-          rm -rf _site
-          mkdir -p _site/data
-          cp index.html _site/index.html
-          cp favicon.svg _site/favicon.svg
-          cp data/projects.json _site/data/projects.json
-          cp data/auto-projects.json _site/data/auto-projects.json
-          touch _site/.nojekyll
+          test -s dist/index.html
+          test -s dist/favicon.svg
+          test -s dist/data/projects.json
+          test -s dist/data/auto-projects.json
+          echo "React site and project catalog assets are ready."
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -145,7 +118,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: _site
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
