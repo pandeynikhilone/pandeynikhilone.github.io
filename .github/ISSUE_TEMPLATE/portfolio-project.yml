@@ -1,0 +1,96 @@
+name: Portfolio project change request
+description: Add, edit, or remove a project card on Nikhil's portfolio website.
+title: "Portfolio project change request"
+labels:
+  - portfolio-update
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to manage the Projects section. Only the repository owner’s requests are applied.
+        **Edit tip:** when editing, leave optional fields blank to keep their current value. Enter `CLEAR` in Source URL, Demo URL, or Status note to remove that value.
+  - type: dropdown
+    id: action
+    attributes:
+      label: Action
+      description: Choose what to do with the project.
+      options:
+        - Add project
+        - Edit project
+        - Remove project
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Project title
+      description: Exact existing title for Edit/Remove, or the title for Add.
+      placeholder: "Task Manager CLI"
+    validations:
+      required: true
+  - type: input
+    id: repo_name
+    attributes:
+      label: Repository name (optional)
+      description: Repository name only, e.g. Task-Manager-CLI. Leave blank for standalone case studies with no public repo.
+      placeholder: "Task-Manager-CLI"
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Short description
+      description: One or two factual sentences. For Edit, leave blank to keep the existing description.
+      placeholder: "What does the project do, and what did you build?"
+    validations:
+      required: false
+  - type: input
+    id: category
+    attributes:
+      label: Category
+      description: Optional short label, such as Python · Automation. Leave blank to keep current category on Edit.
+      placeholder: "Python · Automation"
+    validations:
+      required: false
+  - type: input
+    id: technologies
+    attributes:
+      label: Technologies (comma-separated)
+      description: Leave blank to keep current tags on Edit.
+      placeholder: "Python, FastAPI, SQLite"
+    validations:
+      required: false
+  - type: input
+    id: source_url
+    attributes:
+      label: Source code URL
+      description: Use an https URL, or enter CLEAR to remove on Edit. Leave blank to keep current value.
+      placeholder: "https://github.com/username/repository"
+    validations:
+      required: false
+  - type: input
+    id: demo_url
+    attributes:
+      label: Live demo URL
+      description: Use an https URL, or enter CLEAR to remove on Edit. Leave blank to keep current value.
+      placeholder: "https://example.com"
+    validations:
+      required: false
+  - type: textarea
+    id: status
+    attributes:
+      label: Status note
+      description: Optional truthful note; enter CLEAR to remove on Edit. Leave blank to keep current value.
+      placeholder: "Source repository is private; demo not yet available."
+    validations:
+      required: false
+  - type: textarea
+    id: links
+    attributes:
+      label: "Extra links (one per line: Label | https://example.com)"
+      description: Optional additional links. On Edit, leave blank to keep existing links, or enter CLEAR to remove all.
+      placeholder: |
+        Demo | https://example.com
+        Case study | https://example.com/case-study
+    validations:
+      required: false
