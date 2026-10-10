@@ -8,9 +8,9 @@
       (() => {
         try {
           const saved = window.localStorage.getItem("portfolio-theme");
-          const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          // Start in light mode unless the visitor has explicitly chosen a theme before.
           document.documentElement.dataset.theme =
-            saved === "dark" || saved === "light" ? saved : systemPrefersDark ? "dark" : "light";
+            saved === "dark" || saved === "light" ? saved : "light";
         } catch {
           document.documentElement.dataset.theme = "light";
         }
