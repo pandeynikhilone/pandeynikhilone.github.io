@@ -221,6 +221,15 @@ def main():
 
     manual["projects"] = projects
     auto["hiddenRepoNames"] = sorted(hidden_map)
+    # Apply hides immediately as well as preserving them for the next refresh.
+    auto_projects = auto.get("projects", [])
+    if not isinstance(auto_projects, list):
+        auto_projects = []
+    auto["projects"] = [
+        project for project in auto_projects
+        if isinstance(project, dict)
+        and str(project.get("repoName", "")).casefold() not in hidden_map
+    ]
     MANUAL_FILE.write_text(json.dumps(manual, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     AUTO_FILE.write_text(json.dumps(auto, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
