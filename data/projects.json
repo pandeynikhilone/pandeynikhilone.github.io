@@ -36,33 +36,6 @@
       ],
       "sourceUrl": "https://github.com/pandeynikhilone/TechFestEvent",
       "sourceLabel": "Source code"
-    },
-    {
-      "repoName": "Task-Manager-CLI",
-      "title": "Task Manager CLI",
-      "description": "A menu-driven command-line app for adding, viewing, and deleting tasks. A focused project for practising Java fundamentals, collections, and console input.",
-      "category": "Java · CLI",
-      "technologies": [
-        "Java",
-        "ArrayList",
-        "Scanner",
-        "CLI design"
-      ],
-      "sourceUrl": "https://github.com/pandeynikhilone/Task-Manager-CLI",
-      "sourceLabel": "Source code"
-    },
-    {
-      "repoName": "StudentPortal",
-      "title": "Student Portal",
-      "description": "A student-facing resource project organized around computer-science department materials such as notes, syllabus, forms, videos, and books.",
-      "category": "Student resources",
-      "technologies": [
-        "Web UI",
-        "Information architecture",
-        "Student resources"
-      ],
-      "sourceUrl": "https://github.com/pandeynikhilone/StudentPortal",
-      "sourceLabel": "Source code"
     }
   ]
 }
