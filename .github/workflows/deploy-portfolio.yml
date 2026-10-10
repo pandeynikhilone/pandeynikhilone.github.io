@@ -95,20 +95,29 @@ jobs:
             git add data/auto-projects.json
             git commit -m "Refresh automatic portfolio project catalog"
 
-            # The owner may commit site changes while discovery is running.
-            # Rebase the catalog-only commit onto the latest main before pushing.
+            # Retry from the latest main if another run changed the catalog.
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then
                 git rebase --abort || true
-                echo "Could not rebase automatic catalog. Review the catalog conflict before retrying."
-                exit 1
+                git reset --hard origin/main
+
+                # Regenerate from the newest committed catalog so manual hide
+                # overrides are preserved and timestamp-only commits are avoided.
+                python scripts/update_auto_projects.py
+                git add data/auto-projects.json
+                if git diff --cached --quiet; then
+                  echo "Remote catalog already matches the latest discovery result."
+                  exit 0
+                fi
+                git commit -m "Refresh automatic portfolio project catalog"
               fi
+
               if git push origin HEAD:main; then
                 echo "Automatic project catalog committed successfully."
                 exit 0
               fi
-              echo "Push attempt $attempt failed. Retrying after refresh."
+              echo "Push attempt $attempt failed. Refreshing from main and retrying."
               sleep $((attempt * 2))
             done
 
