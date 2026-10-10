@@ -7,6 +7,7 @@ This is my personal portfolio for software development internships and early-car
     .
     ├── index.html
     ├── package.json
+    ├── package-lock.json
     ├── vite.config.js
     ├── public/
     │   └── favicon.svg
