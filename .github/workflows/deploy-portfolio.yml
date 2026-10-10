@@ -1,0 +1,81 @@
+name: Refresh and Deploy Career Portfolio
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # 00:37 India time (18:37 UTC) every day.
+    - cron: "37 18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: career-portfolio-pages
+  cancel-in-progress: false
+
+jobs:
+  refresh-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Refresh opted-in public repository catalog
+        id: discover
+        continue-on-error: true
+        run: python scripts/update_auto_projects.py
+
+      - name: Preserve last known catalog if discovery fails
+        if: steps.discover.outcome == 'failure'
+        run: |
+          echo "::warning::GitHub repository discovery failed; keeping the last committed auto-projects.json."
+          git checkout -- data/auto-projects.json
+
+      - name: Commit updated automatic catalog if changed
+        run: |
+          if git diff --quiet -- data/auto-projects.json; then
+            echo "Automatic project catalog is unchanged."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/auto-projects.json
+            git commit -m "Refresh automatic portfolio project catalog"
+            git push origin HEAD:main
+          fi
+
+      - name: Prepare static site artifact
+        run: |
+          rm -rf _site
+          mkdir -p _site/data
+          cp index.html _site/index.html
+          cp data/projects.json _site/data/projects.json
+          cp data/auto-projects.json _site/data/auto-projects.json
+          touch _site/.nojekyll
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
