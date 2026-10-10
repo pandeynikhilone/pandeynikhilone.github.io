@@ -21,30 +21,52 @@ export default function MotionEffects() {
       return undefined;
     }
 
-    const targets = Array.from(document.querySelectorAll(REVEAL_TARGETS));
-    targets.forEach((element, index) => {
+    let revealObserver;
+    let itemIndex = 0;
+
+    const registerTarget = (element) => {
+      if (!(element instanceof HTMLElement) || element.classList.contains("scroll-reveal")) return;
       element.classList.add("scroll-reveal");
-      element.style.setProperty("--reveal-delay", (index % 4) * 75 + "ms");
-    });
+      element.style.setProperty("--reveal-delay", (itemIndex % 4) * 75 + "ms");
+      itemIndex += 1;
+      if (revealObserver) revealObserver.observe(element);
+      else element.classList.add("is-visible");
+    };
 
-    root.classList.add("motion-ready");
-
-    let observer;
     if ("IntersectionObserver" in window) {
-      observer = new IntersectionObserver((entries) => {
+      revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         });
       }, {
         threshold: 0.12,
         rootMargin: "0px 0px -5% 0px"
       });
-      targets.forEach((element) => observer.observe(element));
-    } else {
-      targets.forEach((element) => element.classList.add("is-visible"));
     }
+
+    const collectTargets = (scope) => {
+      if (scope instanceof HTMLElement && scope.matches(REVEAL_TARGETS)) {
+        registerTarget(scope);
+      }
+      if (scope.querySelectorAll) {
+        scope.querySelectorAll(REVEAL_TARGETS).forEach(registerTarget);
+      }
+    };
+
+    collectTargets(document);
+    root.classList.add("motion-ready");
+
+    // Projects are fetched after the initial render, so watch for their cards too.
+    const mutationObserver = new MutationObserver((records) => {
+      records.forEach((record) => {
+        record.addedNodes.forEach((node) => {
+          if (node instanceof HTMLElement) collectTargets(node);
+        });
+      });
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     let frame = 0;
     const updateProgress = () => {
@@ -64,7 +86,8 @@ export default function MotionEffects() {
     window.addEventListener("resize", scheduleProgress);
 
     return () => {
-      if (observer) observer.disconnect();
+      if (revealObserver) revealObserver.disconnect();
+      mutationObserver.disconnect();
       window.removeEventListener("scroll", scheduleProgress);
       window.removeEventListener("resize", scheduleProgress);
       if (frame) window.cancelAnimationFrame(frame);
