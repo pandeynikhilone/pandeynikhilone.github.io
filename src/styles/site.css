@@ -155,7 +155,8 @@
     .project-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
     .empty-note { display: none; }
     .experience-section { background: rgba(234,240,229,.55); }
-    .experience-section .timeline { border: 1px solid #cbd6c7; border-radius: 20px; overflow: hidden; background: rgba(255,254,250,.68); }
+    .experience-section .section-head { margin-bottom: clamp(42px, 5vw, 58px); }
+    .experience-section .timeline { border: 1px solid #cbd6c7; border-radius: 20px; overflow: hidden; background: transparent; }
     .experience-section .timeline-item { display: grid; grid-template-columns: 190px minmax(0,1fr); gap: clamp(22px, 5vw, 65px); padding: clamp(28px, 3.2vw, 42px) clamp(24px, 4vw, 46px); border-bottom: 1px solid #cbd6c7; }
     .experience-section .timeline-item:last-child { border-bottom: 0; }
     .experience-section .timeline-item > * { min-width: 0; }
