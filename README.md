@@ -40,7 +40,7 @@ This is my personal portfolio for software development internships and early-car
 
 ## Run locally
 
-Install Node.js 22 or a compatible newer LTS release. From the repository folder, run:
+Install Node.js 22 or a compatible newer LTS release. The committed package-lock.json pins the dependency tree, so npm ci can reproduce the same install in CI. From the repository folder, run:
 
     npm install
     npm run dev
