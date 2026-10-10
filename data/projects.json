@@ -2,6 +2,26 @@
   "instructions": "Edit this file to add, remove, or change hand-picked project cards. Save/commit changes to main. See README.md for the exact fields. Entries here override auto-discovered entries with the same repoName.",
   "projects": [
     {
+      "repoName": "truloop",
+      "title": "Truloop — Real Reviews from Real People",
+      "description": "A full-stack product-review platform designed to help people make more informed buying decisions. Users can discover products, review detailed specifications, read experience-based feedback, and submit their own reviews. The project includes purchase-proof validation work using OCR.",
+      "category": "Full-stack web application",
+      "technologies": [
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "Tesseract.js",
+        "Cloudinary"
+      ],
+      "sourceUrl": "https://github.com/pandeynikhilone/truloop",
+      "sourceLabel": "Source code",
+      "demoUrl": "https://truloop.vercel.app/",
+      "demoLabel": "Live demo"
+    },
+    {
       "repoName": "",
       "title": "AI LinkedIn Content Automation",
       "description": "A workflow that generates LinkedIn post copy and slide outlines, renders animated MP4 videos, and uses GitHub Actions to test LinkedIn authentication, video uploads, and publishing. Includes preview mode and a publishing ledger that blocks repeat posts on the same day.",
