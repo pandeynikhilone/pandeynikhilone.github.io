@@ -1,20 +1,25 @@
 {
-  "instructions": "Edit this file to add, remove, or change hand-picked project cards. Save/commit changes to main. See README.md for the exact fields. Entries here override auto-discovered entries with the same repoName.",
+  "instructions": "Edit this file to add, remove, or change hand-picked project cards. Commit to main. See README.md for the project editing form and field guide.",
   "projects": [
     {
       "repoName": "truloop",
-      "title": "Truloop — Real Reviews from Real People",
-      "description": "A full-stack product-review platform designed to help people make more informed buying decisions. Users can discover products, review detailed specifications, read experience-based feedback, and submit their own reviews. The project includes purchase-proof validation work using OCR.",
-      "category": "Full-stack web application",
+      "title": "TruLoop Product Review Platform",
+      "category": "Full-stack project",
+      "description": "A product review platform focused on long-term user feedback and verified usage insights. I am developing and maintaining both the frontend and backend, with a focus on responsive pages, review flows, and product data.",
+      "period": "Jan 2025 to present",
+      "role": "Full-stack developer",
       "technologies": [
         "Next.js",
-        "React",
+        "React.js",
         "Tailwind CSS",
         "Node.js",
-        "Express",
-        "MongoDB",
-        "Tesseract.js",
-        "Cloudinary"
+        "Express.js",
+        "MongoDB"
+      ],
+      "highlights": [
+        "Built a responsive, component-based frontend with Next.js App Router and Tailwind CSS.",
+        "Integrated backend APIs for product data, reviews, and user interactions.",
+        "Designed MongoDB schemas for reviews and user submissions, including authentication workflows."
       ],
       "sourceUrl": "https://github.com/pandeynikhilone/truloop",
       "sourceLabel": "Source code",
@@ -23,16 +28,21 @@
     },
     {
       "repoName": "TechFestEvent",
-      "title": "TechFest Event Registration",
-      "description": "A student registration website for browsing events, registering participant details, presenting a manual-payment summary, and generating an admit-card flow. The repository credits Nikhil as a frontend contributor.",
-      "category": "Web development",
+      "title": "TechFest Registration Platform",
+      "category": "Frontend volunteer project",
+      "description": "A web-based registration platform built for a college techfest. I developed the responsive frontend, tested form behavior for different inputs, and supported live event operations with registrations for more than 8,000 students.",
+      "period": "Dec 2024 to Feb 2025",
+      "role": "Frontend developer volunteer",
       "technologies": [
-        "HTML",
-        "CSS",
+        "HTML5",
+        "CSS3",
         "JavaScript",
-        "Bootstrap",
-        "Django",
-        "SQLite"
+        "Bootstrap"
+      ],
+      "highlights": [
+        "Created an alternative to traditional form-based registration.",
+        "Refined the interface and form behavior under live-event time constraints.",
+        "Worked with a team that delivered a registration flow for a large student event."
       ],
       "sourceUrl": "https://github.com/pandeynikhilone/TechFestEvent",
       "sourceLabel": "Source code"
