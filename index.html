@@ -492,7 +492,7 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    const escapeHtml = (value) => String(value ?? "").replace(/\u2014/g, "-").replace(/[&<>"']/g, (char) => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
     })[char]);
 
