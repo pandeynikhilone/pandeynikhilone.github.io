@@ -8,7 +8,7 @@ export default function ContactSection() {
         <div className="eyebrow">05 / Contact</div>
         <h2>Let's talk about software, projects, or internships.</h2>
         <p>I'm looking for opportunities where I can contribute to real product work, learn from experienced developers, and keep improving my frontend and full-stack skills.</p>
-        <div className="actions"><a className="button" style={{ background: "var(--lime)", color: "var(--ink)", borderColor: "var(--lime)" }} href={"mailto:" + profile.email}>Email me <span className="button-arrow" aria-hidden="true">↗</span></a></div>
+        <div className="actions"><a className="button" style={{ background: "var(--lime)", color: "var(--ink)", borderColor: "var(--lime)" }} href={"mailto:" + profile.email}>Email me</a></div>
       </div>
       <div className="contact-links">
         <a className="contact-link" href={"mailto:" + profile.email}><span>{profile.email}</span><span aria-hidden="true">↗</span></a>
