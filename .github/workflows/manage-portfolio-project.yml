@@ -1,0 +1,85 @@
+name: Manage Portfolio Projects
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: career-portfolio-pages
+  cancel-in-progress: false
+
+jobs:
+  update-catalog-and-deploy:
+    # Issue forms are public, so only the repository owner may execute a change.
+    if: github.event.issue.user.login == github.repository_owner && contains(github.event.issue.body, '### Action') && contains(github.event.issue.body, '### Project title')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Apply project form to catalog
+        env:
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: python scripts/manage_project_issue.py
+
+      - name: Commit catalog updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/projects.json data/auto-projects.json
+          if git diff --cached --quiet; then
+            echo "No catalog changes were required."
+          else
+            git commit -m "Update portfolio projects from owner form"
+            git push origin HEAD:main
+          fi
+
+      - name: Prepare static site artifact
+        run: |
+          rm -rf _site
+          mkdir -p _site/data
+          cp index.html _site/index.html
+          cp data/projects.json _site/data/projects.json
+          cp data/auto-projects.json _site/data/auto-projects.json
+          touch _site/.nojekyll
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Confirm update in the issue
+        uses: actions/github-script@v8
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "Portfolio project request applied and the website deployment completed. Check https://pandeynikhilone.github.io/ (deployment may take a few minutes to become visible)."
+            });
