@@ -236,7 +236,7 @@
       .project-grid, .toolkit-grid, .education-grid { grid-template-columns: 1fr; }
       .project-art { height: 224px; }
       .experience-section { padding: 56px 0; }
-      .experience-section .timeline { border: 1px solid #cbd6c7; border-radius: 16px; overflow: hidden; background: rgba(255,254,250,.64); }
+      .experience-section .timeline { border: 1px solid #cbd6c7; border-radius: 16px; overflow: hidden; background: transparent; }
       .experience-section .timeline-item { grid-template-columns: minmax(0,1fr); gap: 11px; padding: 24px 19px; }
       .experience-section .timeline-date { order: 0; }
       .experience-section .timeline-main { min-width: 0; }
