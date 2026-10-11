@@ -1,5 +1,9 @@
 # Nikhil Pandey | Career Portfolio
 
+[![Deployment](https://github.com/pandeynikhilone/pandeynikhilone.github.io/actions/workflows/deploy-portfolio.yml/badge.svg)](https://github.com/pandeynikhilone/pandeynikhilone.github.io/actions/workflows/deploy-portfolio.yml)
+[![Site health audit](https://github.com/pandeynikhilone/pandeynikhilone.github.io/actions/workflows/site-health-check.yml/badge.svg)](https://github.com/pandeynikhilone/pandeynikhilone.github.io/actions/workflows/site-health-check.yml)
+
+
 This is my personal portfolio for software development internships and early-career roles. It is built with React, Vite, and plain CSS. The portfolio itself does not use Tailwind CSS, Bootstrap, or a component UI framework.
 
 ## Project structure
