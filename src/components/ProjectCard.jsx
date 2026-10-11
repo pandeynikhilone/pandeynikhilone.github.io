@@ -1,4 +1,15 @@
 function ProjectArtwork({ project }) {
+  if (project.screenshotUrl) {
+    return <div className="project-art project-screenshot">
+      <img
+        src={project.screenshotUrl}
+        alt={project.screenshotAlt || `${project.title || project.repoName || "Project"} screenshot`}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>;
+  }
+
   const name = String(project.repoName || "").toLowerCase();
   if (name === "truloop") {
     return <div className="project-art art-truloop" aria-hidden="true">
