@@ -46,30 +46,6 @@
       ],
       "sourceUrl": "https://github.com/pandeynikhilone/TechFestEvent",
       "sourceLabel": "Source code"
-    },
-    {
-      "repoName": "InternshipTerms-III",
-      "title": "MERN Leaderboard App",
-      "category": "Full-stack practice project",
-      "description": "A leaderboard app where users can be added, claim random points, and view rankings and claim history.",
-      "role": "Full-stack developer",
-      "technologies": [
-        "React",
-        "Vite",
-        "Tailwind CSS",
-        "Node.js",
-        "Express",
-        "MongoDB"
-      ],
-      "highlights": [
-        "Adds users and ranks them by their total points.",
-        "Awards 1 to 10 random points per claim and records the claim history.",
-        "Uses a React frontend, Express API, and MongoDB data models."
-      ],
-      "sourceUrl": "https://github.com/pandeynikhilone/InternshipTerms-III",
-      "sourceLabel": "Source code",
-      "screenshotUrl": "https://raw.githubusercontent.com/pandeynikhilone/InternshipTerms-III/main/readme/image-3.png",
-      "screenshotAlt": "Screenshot of the MERN leaderboard project"
     }
   ]
 }
