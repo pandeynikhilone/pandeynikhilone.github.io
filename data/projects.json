@@ -5,7 +5,7 @@
       "repoName": "truloop",
       "title": "TruLoop Product Review Platform",
       "category": "Full-stack project",
-      "description": "A product review platform focused on long-term user feedback and verified usage insights. I am developing and maintaining both the frontend and backend, with a focus on responsive pages, review flows, and product data.",
+      "description": "A work-in-progress product-review platform exploring more useful feedback than star ratings alone. The current implementation includes product browsing, review submission, authentication, and a heuristic receipt-text check; that check is not proof of purchase.",
       "period": "Jan 2025 to present",
       "role": "Full-stack developer",
       "technologies": [
@@ -17,14 +17,20 @@
         "MongoDB"
       ],
       "highlights": [
-        "Built a responsive, component-based frontend with Next.js App Router and Tailwind CSS.",
-        "Integrated backend APIs for product data, reviews, and user interactions.",
-        "Designed MongoDB schemas for reviews and user submissions, including authentication workflows."
+        "Built a responsive Next.js App Router frontend with reusable React components.",
+        "Connected Express API routes to MongoDB-backed product, review, and user models.",
+        "Added GitHub Actions checks for reproducible installs, backend tests, JavaScript syntax, and a production frontend build."
       ],
       "sourceUrl": "https://github.com/pandeynikhilone/truloop",
       "sourceLabel": "Source code",
       "demoUrl": "https://truloop.vercel.app/",
-      "demoLabel": "Live demo"
+      "demoLabel": "Live demo",
+      "links": [
+        {
+          "label": "CI checks",
+          "url": "https://github.com/pandeynikhilone/truloop/actions/workflows/ci.yml"
+        }
+      ]
     },
     {
       "repoName": "TechFestEvent",
