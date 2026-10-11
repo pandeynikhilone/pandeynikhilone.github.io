@@ -507,3 +507,16 @@ html[data-theme="dark"] .brand-mark {
   border-color: rgba(212, 241, 123, .68);
   box-shadow: 0 0 0 3px rgba(212, 241, 123, .08);
 }
+
+
+/* Real project screenshots use the same card artwork frame as the fallback covers. */
+.project-screenshot {
+  padding: 0;
+  overflow: hidden;
+}
+.project-screenshot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
