@@ -45,7 +45,9 @@
         "Worked with a team that delivered a registration flow for a large student event."
       ],
       "sourceUrl": "https://github.com/pandeynikhilone/TechFestEvent",
-      "sourceLabel": "Source code"
+      "sourceLabel": "Source code",
+      "screenshotUrl": "https://raw.githubusercontent.com/pandeynikhilone/TechFestEvent/main/x-assets/Image1.png",
+      "screenshotAlt": "TechFest student registration interface screenshot"
     }
   ]
 }
