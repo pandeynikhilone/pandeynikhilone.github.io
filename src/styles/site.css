@@ -520,3 +520,61 @@ html[data-theme="dark"] .brand-mark {
   object-fit: cover;
   object-position: top center;
 }
+
+
+/* Content and navigation refinements for the internship portfolio refresh. */
+.project-status {
+  margin: -10px 0 22px;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: .86rem;
+}
+html[data-theme="dark"] .project-status {
+  background: var(--surface);
+  border-color: var(--line);
+}
+@media (max-width: 660px) {
+  .nav { gap: 12px; }
+  .nav-links {
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    right: 0;
+    display: none;
+    align-items: stretch;
+    gap: 5px;
+    padding: 12px 22px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+    box-shadow: 0 20px 30px rgba(23, 35, 29, .08);
+  }
+  .nav-links.is-open { display: grid; }
+  .nav-links > a { padding: 10px 12px; border-radius: 10px; }
+  .nav-links > a:hover { background: var(--surface-green); }
+  .nav-links .nav-cta { text-align: center; margin-top: 4px; }
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 8px 11px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font: 700 .72rem/1 var(--sans);
+    cursor: pointer;
+  }
+  .menu-label { display: inline; }
+  html[data-theme="dark"] .nav-links {
+    background: var(--paper);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, .25);
+  }
+}
+@media (min-width: 661px) {
+  .nav-links[aria-hidden="true"] { visibility: visible; }
+}
