@@ -54,6 +54,30 @@
       "sourceLabel": "Source code",
       "screenshotUrl": "https://raw.githubusercontent.com/pandeynikhilone/TechFestEvent/main/x-assets/Image1.png",
       "screenshotAlt": "TechFest student registration interface screenshot"
+    },
+    {
+      "repoName": "portfolio",
+      "title": "Developer Portfolio",
+      "category": "Personal website",
+      "description": "A recruiter-focused portfolio built to present projects, internship experience, technical skills, and contact details in one responsive place. The site uses a reusable React component structure and plain CSS, with light and dark themes.",
+      "period": "Oct 2026",
+      "role": "Designer and developer",
+      "technologies": [
+        "React",
+        "Vite",
+        "Plain CSS",
+        "GitHub Actions",
+        "GitHub Pages"
+      ],
+      "highlights": [
+        "Built a responsive layout with reusable sections for work, experience, skills, education, and contact.",
+        "Added a persisted theme toggle, reduced-motion support, and keyboard-friendly navigation.",
+        "Set up automated validation and deployment through GitHub Actions."
+      ],
+      "sourceUrl": "https://github.com/pandeynikhilone/pandeynikhilone.github.io",
+      "sourceLabel": "Source code",
+      "demoUrl": "https://pandeynikhilone.github.io/",
+      "demoLabel": "Live website"
     }
   ]
 }
