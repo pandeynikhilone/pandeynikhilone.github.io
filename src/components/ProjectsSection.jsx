@@ -33,8 +33,8 @@ export default function ProjectsSection() {
 
   return <section className="section" id="projects">
     <div className="section-head">
-      <div><div className="eyebrow">01 / Selected work</div><h2>Projects built by solving real problems.</h2></div>
-      <p className="section-intro">A focused look at work I can explain in an interview: the problem, my contribution, the technical choices, and what I learned. Visit the code or a live demo to explore further.</p>
+      <div><div className="eyebrow">01 / Selected work</div><h2>TruLoop</h2></div>
+      <p className="section-intro">Full-stack product review platform built with Next.js, React, Node.js, Express, and MongoDB.</p>
     </div>
     {loading && <p className="project-status" role="status">Loading project details…</p>}
     {!loading && loadFailed && <p className="project-status" role="status">Project details could not be loaded. Please use the GitHub link to explore my work.</p>}

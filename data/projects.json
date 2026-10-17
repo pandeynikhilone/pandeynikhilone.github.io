@@ -1,13 +1,12 @@
 {
-  "instructions": "Edit this file to add, remove, or change hand-picked project cards. Commit to main. See README.md for the project editing form and field guide.",
+  "instructions": "Edit this file to add, remove, or change hand-picked project cards. Keep descriptions, dates, technologies, and responsibilities consistent with the current resume.",
   "projects": [
     {
       "repoName": "truloop",
-      "title": "TruLoop Product Review Platform",
-      "category": "Full-stack project",
-      "description": "A work-in-progress product-review platform exploring more useful feedback than star ratings alone. The current implementation includes product browsing, review submission, authentication, and a heuristic receipt-text check; that check is not proof of purchase.",
-      "period": "Jan 2025 to present",
-      "role": "Full-stack developer",
+      "title": "TruLoop",
+      "category": "Full-stack web application",
+      "description": "A product review platform focused on long-term user feedback and verified usage insights. I am building and maintaining the frontend and backend independently.",
+      "period": "Jan 2026 to May 2026",
       "technologies": [
         "Next.js",
         "React.js",
@@ -17,67 +16,15 @@
         "MongoDB"
       ],
       "highlights": [
-        "Built a responsive Next.js App Router frontend with reusable React components.",
-        "Connected Express API routes to MongoDB-backed product, review, and user models.",
-        "Added GitHub Actions checks for reproducible installs, backend tests, JavaScript syntax, and a production frontend build."
+        "Designed and developed a responsive, component-based frontend using Next.js App Router and Tailwind CSS.",
+        "Built reusable navigation menus, product cards, and review sections for future feature expansion.",
+        "Integrated Node.js and Express APIs for products, reviews, and user interactions.",
+        "Structured MongoDB schemas for review data, user submissions, and authentication workflows."
       ],
       "sourceUrl": "https://github.com/pandeynikhilone/truloop",
-      "sourceLabel": "Source code",
+      "sourceLabel": "GitHub",
       "demoUrl": "https://truloop.vercel.app/",
-      "demoLabel": "Live demo",
-      "links": [
-        {
-          "label": "CI checks",
-          "url": "https://github.com/pandeynikhilone/truloop/actions/workflows/ci.yml"
-        }
-      ]
-    },
-    {
-      "repoName": "TechFestEvent",
-      "title": "TechFest Registration Platform",
-      "category": "Frontend volunteer project",
-      "description": "A web-based registration platform built for a college techfest. I developed the responsive frontend, tested form behavior for different inputs, and supported live event operations with registrations for more than 8,000 students.",
-      "period": "Dec 2024 to Feb 2025",
-      "role": "Frontend developer volunteer",
-      "technologies": [
-        "HTML5",
-        "CSS3",
-        "JavaScript",
-        "Bootstrap"
-      ],
-      "highlights": [
-        "Created an alternative to traditional form-based registration.",
-        "Refined the interface and form behavior under live-event time constraints.",
-        "Worked with a team that delivered a registration flow for a large student event."
-      ],
-      "sourceUrl": "https://github.com/pandeynikhilone/TechFestEvent",
-      "sourceLabel": "Source code",
-      "screenshotUrl": "https://raw.githubusercontent.com/pandeynikhilone/TechFestEvent/main/x-assets/Image1.png",
-      "screenshotAlt": "TechFest student registration interface screenshot"
-    },
-    {
-      "repoName": "portfolio",
-      "title": "Developer Portfolio",
-      "category": "Personal website",
-      "description": "A recruiter-focused portfolio built to present projects, internship experience, technical skills, and contact details in one responsive place. The site uses a reusable React component structure and plain CSS, with light and dark themes.",
-      "period": "Oct 2026",
-      "role": "Designer and developer",
-      "technologies": [
-        "React",
-        "Vite",
-        "Plain CSS",
-        "GitHub Actions",
-        "GitHub Pages"
-      ],
-      "highlights": [
-        "Built a responsive layout with reusable sections for work, experience, skills, education, and contact.",
-        "Added a persisted theme toggle, reduced-motion support, and keyboard-friendly navigation.",
-        "Set up automated validation and deployment through GitHub Actions."
-      ],
-      "sourceUrl": "https://github.com/pandeynikhilone/pandeynikhilone.github.io",
-      "sourceLabel": "Source code",
-      "demoUrl": "https://pandeynikhilone.github.io/",
-      "demoLabel": "Live website"
+      "demoLabel": "Deployed site"
     }
   ]
 }

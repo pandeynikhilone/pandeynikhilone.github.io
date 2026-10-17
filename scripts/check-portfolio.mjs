@@ -26,7 +26,7 @@ const curated = JSON.parse(readFileSync("data/projects.json", "utf8"));
 const discovered = JSON.parse(readFileSync("data/auto-projects.json", "utf8"));
 assert.ok(Array.isArray(curated.projects), "Curated catalog must contain a projects array.");
 assert.ok(Array.isArray(discovered.projects), "Automatic catalog must contain a projects array.");
-assert.ok(curated.projects.length >= 3, "Keep at least three curated projects in the portfolio.");
+assert.ok(curated.projects.length >= 1, "The current resume requires at least one curated project.");
 
 const dependencies = { ...packageConfig.dependencies, ...packageConfig.devDependencies };
 assert.ok(dependencies.react && dependencies["react-dom"], "React and React DOM must be installed.");

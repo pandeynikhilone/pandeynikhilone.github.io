@@ -34,7 +34,7 @@ export default function SiteHeader() {
     <>
       <div className="topline">
         <div className="wrap topline-inner">
-          <span className="live-label"><span className="live-dot" aria-hidden="true" />OPEN TO SOFTWARE DEVELOPMENT INTERNSHIPS</span>
+          <span className="live-label"><span className="live-dot" aria-hidden="true" />FULL-STACK DEVELOPER · FRONTEND-FOCUSED</span>
           <a href={"mailto:" + profile.email}>Say hello <span aria-hidden="true">↗</span></a>
         </div>
       </div>
@@ -44,9 +44,9 @@ export default function SiteHeader() {
             <span className="brand-mark">{profile.initials}</span>
             <span className="brand-name">{profile.name}</span>
           </a>
-          <div id="primary-navigation" className={"nav-links" + (menuOpen ? " is-open" : "")} aria-hidden={!menuOpen}>
-            {navigation.map(([label, href]) => <a key={href} href={href} onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>{label}</a>)}
-            <a className="nav-cta" href="#contact" onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>Contact <span aria-hidden="true">↗</span></a>
+          <div id="primary-navigation" className={"nav-links" + (menuOpen ? " is-open" : "")}>
+            {navigation.map(([label, href]) => <a key={href} href={href} onClick={closeMenu}>{label}</a>)}
+            <a className="nav-cta" href="#contact" onClick={closeMenu}>Contact <span aria-hidden="true">↗</span></a>
           </div>
           <div className="nav-actions">
             <ThemeToggle />

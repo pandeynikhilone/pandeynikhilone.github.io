@@ -15,18 +15,7 @@ function ProjectArtwork({ project }) {
     return <div className="project-art art-truloop" aria-hidden="true">
       <div className="cover-top"><span className="cover-logo"><span className="cover-mark">TR</span> TRULOOP</span><span className="cover-pill">PRODUCT REVIEW PLATFORM</span></div>
       <div className="cover-title">Real reviews.<br /><span>Better choices.</span></div>
-      <div className="cover-footer"><span>HONEST USER FEEDBACK</span><span>NEXT.JS / NODE.JS</span></div>
-    </div>;
-  }
-  if (name === "techfestevent") {
-    return <div className="project-art art-techfest" aria-hidden="true">
-      <div className="techfest-sheet">
-        <div className="techfest-top"><span>COLLEGE TECHFEST</span><span className="techfest-badge">REGISTRATION</span></div>
-        <div className="techfest-title">Student registration</div><div className="form-line" /><div className="form-line short" />
-        <div className="form-rows"><div className="form-option">Student details</div><div className="form-option">Choose event</div></div>
-        <div className="form-submit">REGISTRATION FLOW</div>
-      </div>
-      <div className="techfest-label">FRONTEND / EVENT SUPPORT</div>
+      <div className="cover-footer"><span>LONG-TERM USER FEEDBACK</span><span>NEXT.JS / NODE.JS</span></div>
     </div>;
   }
   return <div className="project-art art-truloop" aria-hidden="true">
@@ -51,6 +40,7 @@ export default function ProjectCard({ project, index }) {
     <div className="project-body">
       <div className="project-kicker"><span className="project-index">PROJECT {String(index + 1).padStart(2, "0")}</span><span className="project-type">{project.category || "Software project"}</span></div>
       <h3>{project.title || project.repoName || "Untitled project"}</h3>
+      {project.period && <p>{project.period}</p>}
       <p>{project.description || "Project details will be added soon."}</p>
       {highlights.length > 0 && <ul className="project-highlights">{highlights.slice(0, 4).map((item) => <li key={item}>{item}</li>)}</ul>}
       {technologies.length > 0 && <div className="tags">{technologies.slice(0, 8).map((technology) => <span className="tag" key={technology}>{technology}</span>)}</div>}

@@ -3,8 +3,8 @@ import { skillGroups } from "../data/portfolio.js";
 export default function SkillsSection() {
   return <section className="section" id="skills">
     <div className="section-head">
-      <div><div className="eyebrow">03 / Technical toolkit</div><h2>Tools I have worked with.</h2></div>
-      <p className="section-intro">This list reflects the technologies in my resume and project work. I am still developing depth as I build and maintain applications.</p>
+      <div><div className="eyebrow">03 / Technical toolkit</div><h2>Technical skills</h2></div>
+      <p className="section-intro">Technologies and development practices from my experience and project work.</p>
     </div>
     <div className="toolkit-grid">
       {skillGroups.map((group) => <article className="toolkit-card" key={group.number}>

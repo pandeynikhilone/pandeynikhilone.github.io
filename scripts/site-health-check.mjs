@@ -163,7 +163,7 @@ try {
     if (!response) fail("Site load", "Navigation returned no HTTP response.");
     else if (!response.ok()) fail("Site load", "Homepage returned HTTP " + response.status() + ".");
     await page.locator("h1").first().waitFor({ state: "visible", timeout: 15000 });
-    await page.waitForFunction(() => document.querySelectorAll(".project-card").length >= 2, null, { timeout: 15000 }).catch(() => {});
+    await page.waitForFunction(() => document.querySelectorAll(".project-card").length >= 1, null, { timeout: 15000 }).catch(() => {});
     await page.waitForTimeout(700);
   } catch (error) {
     fail("Site load", error.message);
@@ -203,7 +203,7 @@ try {
     if (!info.description) fail("Recruiter content", "Meta description is empty.");
     if (info.h1s.length !== 1) fail("Recruiter content", "Expected exactly one H1 but found " + info.h1s.length + ".");
     if (!info.mainExists) fail("Recruiter content", "Main landmark is missing.");
-    if (info.projects.length < 2) fail("Recruiter content", "Expected at least two project cards; found " + info.projects.length + ".");
+    if (info.projects.length < 1) fail("Recruiter content", "Expected at least one project card; found " + info.projects.length + ".");
     if (info.emptyProjectCards) fail("Recruiter content", info.emptyProjectCards + " project card(s) have a missing title or description.");
     for (const section of info.sections) if (!section.exists) fail("Navigation", "Expected #" + section.id + " section target does not exist.");
     for (const [name, exists] of Object.entries(info.contact)) if (!exists) fail("Recruiter contact", "Expected " + name + " contact method/link is missing.");
