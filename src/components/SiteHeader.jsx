@@ -44,7 +44,7 @@ export default function SiteHeader() {
             <span className="brand-mark">{profile.initials}</span>
             <span className="brand-name">{profile.name}</span>
           </a>
-          <div id="primary-navigation" className={"nav-links" + (menuOpen ? " is-open" : "")} aria-hidden={menuOpen ? undefined : true}>
+          <div id="primary-navigation" className={"nav-links" + (menuOpen ? " is-open" : "")} aria-hidden={!menuOpen}>
             {navigation.map(([label, href]) => <a key={href} href={href} onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>{label}</a>)}
             <a className="nav-cta" href="#contact" onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>Contact <span aria-hidden="true">↗</span></a>
           </div>
