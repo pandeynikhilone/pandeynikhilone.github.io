@@ -5,13 +5,14 @@ export const profile = {
   email: "pandeynikhilone@gmail.com",
   phone: "+91 96764 55712",
   linkedin: "https://www.linkedin.com/in/pandeynikhilone/",
-  github: "https://github.com/pandeynikhilone"
+  github: "https://github.com/pandeynikhilone",
+  portfolio: "https://pandeynikhilone.github.io/"
 };
 
 export const highlights = [
-  { value: "8,000+", label: "students supported through techfest registration" },
-  { value: "200+", label: "contributions on GitHub" },
-  { value: "3", label: "hands-on roles across internship, volunteering, and projects" }
+  { value: "8,000+", label: "students supported through a college techfest registration flow" },
+  { value: "200+", label: "GitHub contributions across ongoing development work" },
+  { value: "2", label: "hands-on frontend roles alongside full-stack projects" }
 ];
 
 export const experience = [
@@ -41,12 +42,12 @@ export const experience = [
 ];
 
 export const skillGroups = [
-  { number: "01", title: "Programming and markup", description: "JavaScript ES6+, TypeScript, HTML5, CSS3" },
-  { number: "02", title: "Frontend", description: "React.js, Next.js, React Native, Tailwind CSS, Bootstrap, SCSS" },
-  { number: "03", title: "Backend and data", description: "Node.js, Express.js, REST APIs, MongoDB" },
-  { number: "04", title: "Tools and platforms", description: "Git, GitHub, Insomnia, Render, Vercel, Google Charts" },
-  { number: "05", title: "Development practices", description: "Responsive design, component-based architecture, API integration, version control workflows" },
-  { number: "06", title: "Team workflow", description: "Exposure to agile development and iterative debugging" }
+  { number: "01", title: "Programming", description: "JavaScript ES6+, TypeScript, Java, C++, HTML5, CSS3" },
+  { number: "02", title: "Frontend development", description: "React.js, Next.js, responsive interfaces, component-based UI, accessible CSS" },
+  { number: "03", title: "Backend and data", description: "Node.js, Express.js, REST APIs, MongoDB, authentication flows" },
+  { number: "04", title: "Developer tools", description: "Git, GitHub, Insomnia, Render, Vercel, Google Charts" },
+  { number: "05", title: "Engineering practices", description: "API integration, debugging, reusable components, version control, CI checks" },
+  { number: "06", title: "Currently building", description: "Full-stack product features, core Java, data structures and algorithms" }
 ];
 
 export const education = [
