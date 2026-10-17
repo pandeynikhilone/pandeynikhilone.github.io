@@ -10,6 +10,9 @@ async function readProjectList(path) {
 
 export default function ProjectsSection() {
   const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
+
   useEffect(() => {
     let active = true;
     Promise.all([readProjectList("data/projects.json"), readProjectList("data/auto-projects.json")])
@@ -18,15 +21,24 @@ export default function ProjectsSection() {
         const automatic = discovered.filter((project) => !curatedNames.has(String(project.repoName || "").toLowerCase()));
         if (active) setProjects([...curated, ...automatic]);
       })
-      .catch((error) => console.error("Portfolio project catalog could not be loaded.", error));
+      .catch((error) => {
+        console.error("Portfolio project catalog could not be loaded.", error);
+        if (active) setLoadFailed(true);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
     return () => { active = false; };
   }, []);
 
   return <section className="section" id="projects">
     <div className="section-head">
-      <div><div className="eyebrow">01 / Selected work</div><h2>Projects I can walk you through.</h2></div>
-      <p className="section-intro">I have kept the list focused on projects where I can explain the problem, my contribution, and the technical choices. Open the code or live demo to explore further.</p>
+      <div><div className="eyebrow">01 / Selected work</div><h2>Projects built by solving real problems.</h2></div>
+      <p className="section-intro">A focused look at work I can explain in an interview: the problem, my contribution, the technical choices, and what I learned. Visit the code or a live demo to explore further.</p>
     </div>
+    {loading && <p className="project-status" role="status">Loading project details…</p>}
+    {!loading && loadFailed && <p className="project-status" role="status">Project details could not be loaded. Please use the GitHub link to explore my work.</p>}
+    {!loading && !loadFailed && projects.length === 0 && <p className="project-status" role="status">Projects are being updated. Please check back soon.</p>}
     <div className="project-grid" aria-label="Portfolio projects">
       {projects.map((project, index) => <ProjectCard key={project.repoName || project.title || index} project={project} index={index} />)}
     </div>
