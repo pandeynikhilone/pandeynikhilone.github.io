@@ -26,6 +26,7 @@ const curated = JSON.parse(readFileSync("data/projects.json", "utf8"));
 const discovered = JSON.parse(readFileSync("data/auto-projects.json", "utf8"));
 assert.ok(Array.isArray(curated.projects), "Curated catalog must contain a projects array.");
 assert.ok(Array.isArray(discovered.projects), "Automatic catalog must contain a projects array.");
+assert.ok(curated.projects.length >= 3, "Keep at least three curated projects in the portfolio.");
 
 const dependencies = { ...packageConfig.dependencies, ...packageConfig.devDependencies };
 assert.ok(dependencies.react && dependencies["react-dom"], "React and React DOM must be installed.");
@@ -34,6 +35,7 @@ assert.ok(!Object.keys(dependencies).some((name) => /tailwind|bootstrap/i.test(n
 assert.ok(existsSync("src/components/ThemeToggle.jsx"), "Theme toggle component must exist.");
 assert.ok(readFileSync("src/styles/site.css", "utf8").includes('html[data-theme="dark"]'), "Dark theme styles must exist.");
 assert.ok(readFileSync("src/components/SiteHeader.jsx", "utf8").includes("ThemeToggle"), "Theme toggle must be included in site navigation.");
+assert.ok(readFileSync("src/components/ProjectsSection.jsx", "utf8").includes("project-status"), "Project loading and empty states must be visible.");
 const html = readFileSync("index.html", "utf8");
 assert.ok(/<link\s+rel=["']icon["'][^>]*href=["']\.\/favicon\.svg\?v=\d+["']/i.test(html),
   "index.html must reference a versioned relative SVG favicon.");
