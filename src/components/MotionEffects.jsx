@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 const REVEAL_TARGETS = [
   ".section-head",
@@ -7,11 +7,11 @@ const REVEAL_TARGETS = [
   ".toolkit-card",
   ".education-card",
   ".contact-panel",
-  ".proof-item"
+  ".proof-item",
 ].join(", ");
 
 export default function MotionEffects() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement;
     const progress = document.querySelector(".scroll-progress > span");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -25,25 +25,46 @@ export default function MotionEffects() {
     let itemIndex = 0;
 
     const registerTarget = (element) => {
-      if (!(element instanceof HTMLElement) || element.classList.contains("scroll-reveal")) return;
-      element.classList.add("scroll-reveal");
-      element.style.setProperty("--reveal-delay", (itemIndex % 4) * 75 + "ms");
-      itemIndex += 1;
-      if (revealObserver) revealObserver.observe(element);
-      else element.classList.add("is-visible");
+      if (!(element instanceof HTMLElement)) return;
+
+      // Add reveal styling only once.
+      if (!element.classList.contains("scroll-reveal")) {
+        element.classList.add("scroll-reveal");
+
+        element.style.setProperty(
+          "--reveal-delay",
+          (itemIndex % 4) * 75 + "ms",
+        );
+
+        itemIndex += 1;
+      }
+
+      // Already visible? Nothing else is needed.
+      if (element.classList.contains("is-visible")) return;
+
+      // Register hidden elements with the current observer,
+      // even if they were registered during an earlier effect setup.
+      if (revealObserver) {
+        revealObserver.observe(element);
+      } else {
+        element.classList.add("is-visible");
+      }
     };
 
     if ("IntersectionObserver" in window) {
-      revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
-        });
-      }, {
-        threshold: 0.12,
-        rootMargin: "0px 0px -5% 0px"
-      });
+      revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: "0px 0px -5% 0px",
+        },
+      );
     }
 
     const collectTargets = (scope) => {
@@ -72,7 +93,10 @@ export default function MotionEffects() {
     const updateProgress = () => {
       frame = 0;
       if (!progress) return;
-      const scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const scrollable = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
       const amount = Math.min(1, Math.max(0, window.scrollY / scrollable));
       progress.style.transform = "scaleX(" + amount + ")";
     };
